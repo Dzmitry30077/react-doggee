@@ -5,11 +5,26 @@ import { Button } from '../../common/buttons'
 
 import styles from './LoginPage.module.css'
 
-const validateLoginForm = (value: string) => {
+const validateUsername = (value: string) => {
   if (!value) {
     return 'faild required'
   }
   return null
+}
+const validatePassword = (value: string) => {
+  if (!value) {
+    return 'faild required'
+  }
+  return null
+}
+
+const loginFormValidateScheme = {
+  username: validateUsername,
+  password: validatePassword,
+}
+
+const validateLoginForm = (name: 'username | password', value: string) => {
+  return loginFormValidateScheme[name](value)
 }
 
 interface IFormErrors {
@@ -42,7 +57,7 @@ const LoginPage = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const username = e.target.value;
                   setFormValues({ ...formValues, username });
-                  const error = validateLoginForm(username);
+                  const error = validateLoginForm('username', username);
                   if (error) return setFormErrors({ ...formValues, username: error})
                 }
                 }
