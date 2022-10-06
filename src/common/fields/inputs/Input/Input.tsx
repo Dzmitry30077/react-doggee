@@ -1,21 +1,17 @@
 import React from 'react'
 
-import './Input.css'
+import styles from './Input.module.css'
 
 interface IinputProps extends React.HTMLProps<HTMLInputElement> {
-  isError?: boolean,
-  helperText?: string,
+  isError?: boolean
+  helperText?: string
 }
 
-export const Input: React.FC<IinputProps> = ({isError = false, helperText, ...props}) => {
-  const className = isError ? 'input_error': '';
-
+export const Input: React.FC<IinputProps> = ({ isError = false, helperText, ...props }) => {
   return (
-    <div>
-      <input className={className} {...props} />
-      {isError && helperText &&
-        <div className='input_helper_text'>{helperText}</div>
-      }
-    </div>
+    <>
+      <input className={`${styles.input} ${isError ? styles.error : ''}`} {...props} />
+      {isError && helperText && <div className={styles.helper_text}>{helperText}</div>}
+    </>
   )
 }
